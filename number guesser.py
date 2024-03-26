@@ -3,28 +3,41 @@ from tkinter import *
 
 #random number generator function
 def take_number():
-    number = random.randint(0,9)
+    number.set(random.randint(0,9))
     number_lbl.configure(text='Number Taken')
-    print(number)
 
+    result_lbl.pack_forget()
+    result_lbl2.pack_forget()
+    #print(number.get())
+
+#Guess evaluation function
 def make_guess():
     if guess.get()<number.get():
         result_lbl.configure(text='You guessed too LOW')
+        result_lbl.pack()
 
     elif guess.get()>number.get():
         result_lbl.configure(text='You guessed too HIGHT')
+        result_lbl.pack()
 
     elif guess.get()==number.get():
         result_lbl.configure(text='CONGRATULATIONS!You guessed RIGHT')
+        result_lbl.pack()
+        result_lbl2.pack()
 
+    #print(str(number.get())+','+str(guess.get()))
 
 #main window setup
 main_window = Tk()
-main_window.title('Number Guesser')
-main_window.geometry('400x400')
+main_window.title('Number Guesser v1')
+main_window.geometry('400x200')
 
-number_frame = Frame(main_window).pack()
-guess_frame = Frame(main_window).pack()
+number_frame = Frame(main_window)
+guess_frame = Frame(main_window)
+dev_frame = Frame(main_window)
+number_frame.grid(row=0)
+guess_frame.grid(row=1)
+dev_frame.grid(row=2)
 
 #variables
 number=IntVar()
@@ -46,7 +59,10 @@ guess_btn.pack()
 
 #result display
 result_lbl = Label(guess_frame)
-result_lbl.pack()
+result_lbl2 = Label(guess_frame,text="Take another number")
+
+dev_lbl = Label(dev_frame,text='made by lpac-m',justify='left',padx=150,pady=50)
+dev_lbl.pack()
 
 main_window.mainloop()
 
