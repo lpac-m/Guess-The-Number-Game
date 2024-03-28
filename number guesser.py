@@ -3,15 +3,17 @@ from tkinter import *
 
 #random number generator function
 def take_number():
-    number.set(random.randint(0,9))
+    number.set(random.randint(0,100))
     number_lbl.configure(text='Number Taken')
 
     result_lbl.pack_forget()
     result_lbl2.pack_forget()
+    guess_count.set(0)
     #print(number.get())
 
 #Guess evaluation function
 def make_guess():
+    guess_count.set(guess_count.get()+1)
     if guess.get()<number.get():
         result_lbl.configure(text='You guessed too LOW')
         result_lbl.pack()
@@ -42,6 +44,7 @@ dev_frame.grid(row=2)
 #variables
 number=IntVar()
 guess = IntVar()
+guess_count = IntVar()
 
 #Number GUI
 number_lbl = Label(number_frame,text="No number taken")
@@ -50,12 +53,14 @@ number_btn = Button(number_frame,text='Take a number',command=lambda:take_number
 number_btn.pack()
 
 #Guess GUI
-guess_lbl = Label(guess_frame,text='Make your guess:')
+guess_lbl = Label(guess_frame,text='Make your guess between 0-100:')
 guess_lbl.pack()
 guess_entry = Entry(guess_frame,textvariable=guess)
 guess_entry.pack()
 guess_btn = Button(guess_frame,text="Guess",command=lambda:make_guess())
 guess_btn.pack()
+counter_lbl = Label(guess_frame,textvariable=guess_count)
+counter_lbl.pack()
 
 #result display
 result_lbl = Label(guess_frame)
